@@ -1,41 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState } from "react"
 
-export default function App() {
-  const [task, setTask] = useState("");
-  const [tasklist, setTasklist] = useState(
-    JSON.parse(localStorage.getItem("tasks") || "[]")
-  );
-
-  const addtask = () => {
-    if (task.trim() !== "") {
-      setTasklist([...tasklist, task]);
-      setTask ("");
-    }
-  };
-  const taskToDelete =(idToDelete)=>{
-    setTasklist(tasklist.filter(((_,index)=> index !== idToDelete)))
-
-  }
-  useEffect(()=>{
-    localStorage.setItem("tasks", JSON.stringify(tasklist))
-  },[tasklist])
- 
-  return (
-    <>
-      <input
-        onChange={(e) => setTask(e.target.value)}
-        type="text"
-        placeholder="Enter Task"
-        value={task}
-      />
-      <button onClick={addtask}>Add Task</button>
-      <ul>
-        {tasklist.map((task, index) => (
-          <li key={index}>
-            {task} <button onClick={()=> taskToDelete(index)}>Delete Task</button>
-            </li>
-        ))}
-      </ul>
-    </>
-  );
+export default function App(){
+    const [password, setPassword] = useState("")
+    const [show ,setShow] = useState(false)
+    return(
+        <div>
+            <input onChange={(e)=> setPassword(e.target.value)} type={show ? "text" : "password"} placeholder="Enter Password"
+            value={password} maxLength={8} />
+            <button disabled={!password} onClick={()=> setShow(!show)}>{show ? "Hide🙈" : "Show👁️"}</button>
+        </div>
+    )
 }
